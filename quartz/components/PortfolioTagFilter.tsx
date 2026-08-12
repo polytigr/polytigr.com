@@ -68,7 +68,7 @@ body[data-slug="store"] .bases-card-row[data-facet-row] {
 
 PortfolioTagFilter.afterDOMLoaded = `
 function portfolioNorm(value) {
-  return String(value || "").trim().toLowerCase()
+  return String(value || "").trim().toLowerCase().replaceAll(" ", "-")
 }
 
 function portfolioFacetsFromDom(card) {

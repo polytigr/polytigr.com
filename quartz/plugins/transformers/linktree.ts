@@ -10,12 +10,17 @@ const DOMAIN_TO_ICON: Record<string, string> = {
   "twitter.com": "x.svg",
   "reddit.com": "reddit.svg",
   "tiktok.com": "tiktok.svg",
+  "artstation.com": "artstation.png",
   "sketchfab.com": "sketchfab.svg",
+  "itch.io": "itch.png",
   "linkedin.com": "linkedin.svg",
   "fab.com": "fab.svg",
   "cgtrader.com": "cgtrader.svg",
+  "3dexport.com": "3dexport.png",
+  "gumroad.com": "gumroad.png",
   "discord.com": "discord.svg",
   "discord.gg": "discord.svg",
+  "superhivemarket.com": "superhive.png",
 }
 
 export const LINKTREE_RE =
