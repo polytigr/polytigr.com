@@ -133,6 +133,38 @@ function portfolioApplyFilter(root, selected) {
   }
 }
 
+function portfolioReadQuery(selected, chips) {
+  const known = new Set(chips.map((btn) => btn.dataset.tag).filter(Boolean))
+  const params = new URLSearchParams(window.location.search)
+  ;["field", "style", "software"].forEach((group) => {
+    params.getAll(group).forEach((raw) => {
+      String(raw).split(",").forEach((value) => {
+        const key = group + ":" + portfolioNorm(value)
+        if (known.has(key)) selected.add(key)
+      })
+    })
+  })
+}
+
+function portfolioWriteQuery(selected, chips) {
+  const url = new URL(window.location.href)
+  const groups = new Set()
+  chips.forEach((btn) => {
+    const tag = btn.dataset.tag || ""
+    const i = tag.indexOf(":")
+    if (i > 0) groups.add(tag.slice(0, i))
+  })
+  groups.forEach((group) => url.searchParams.delete(group))
+  selected.forEach((key) => {
+    const i = key.indexOf(":")
+    if (i < 1) return
+    const group = key.slice(0, i)
+    if (!groups.has(group)) return
+    url.searchParams.append(group, key.slice(i + 1))
+  })
+  history.replaceState({}, "", url)
+}
+
 function portfolioBuildFilters(page, groups) {
   let bar = page.querySelector(".portfolio-tag-filters")
   if (!bar) {
@@ -164,6 +196,7 @@ function portfolioBuildFilters(page, groups) {
       btn.setAttribute("aria-pressed", active ? "true" : "false")
     })
     portfolioApplyFilter(page, selected)
+    portfolioWriteQuery(selected, chips)
   }
 
   const allRow = document.createElement("div")
@@ -211,6 +244,7 @@ function portfolioBuildFilters(page, groups) {
     bar.appendChild(row)
   })
 
+  portfolioReadQuery(selected, chips)
   syncChips()
   return bar
 }
