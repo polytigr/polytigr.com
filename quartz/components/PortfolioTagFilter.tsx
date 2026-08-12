@@ -117,10 +117,17 @@ function portfolioCollectFacets(cards) {
 
 function portfolioApplyFilter(root, selected) {
   const cards = root.querySelectorAll(".bases-card")
+  const byGroup = {}
+  selected.forEach((key) => {
+    const i = key.indexOf(":")
+    if (i < 1) return
+    ;(byGroup[key.slice(0, i)] ||= []).push(key)
+  })
+  const groups = Object.values(byGroup)
   let visible = 0
   cards.forEach((card) => {
     const facets = (card.dataset.facets || "").split(/\\s+/).filter(Boolean)
-    const show = selected.size === 0 || [...selected].some((t) => facets.includes(t))
+    const show = groups.length === 0 || groups.every((keys) => keys.some((t) => facets.includes(t)))
     card.hidden = !show
     if (show) visible++
   })
