@@ -10,8 +10,6 @@ software:
   - Blender
   - Unity
 image: files/projects/covers/csof-airport-logo.jpg
-cssclasses:
-  - project-detail
 ---
 ![[files/projects/csof-airport.webp]]
 ![[files/projects/csof-airport-2.webp]]

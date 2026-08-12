@@ -10,8 +10,6 @@ software:
   - Blender
   - Unreal
 image: files/projects/covers/bastion-street-logo.jpg
-cssclasses:
-  - project-detail
 ---
 ![[files/projects/bastion-street.webp]]
 ![[files/projects/bastion-street-2.webp]]

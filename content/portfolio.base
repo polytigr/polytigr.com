@@ -4,7 +4,6 @@ filters:
 views:
   - type: cards
     name: Cards
-    # Keep field/style/software in order (Obsidian may strip them on save).
     order:
       - file.name
       - field

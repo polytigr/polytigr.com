@@ -1,9 +1,7 @@
 ---
 title: Store
-type: page
 cssclasses:
   - portfolio
-  - store
 ---
 # Store
 <!-- linktree: Stores -->

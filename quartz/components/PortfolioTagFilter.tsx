@@ -1,6 +1,5 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 
-/** Client-side Field / Style / Software chips for Bases cards on Portfolio + Store. */
 const PortfolioTagFilter: QuartzComponent = (_props: QuartzComponentProps) => {
   return null
 }
@@ -73,11 +72,11 @@ function portfolioNorm(value) {
 }
 
 function portfolioFacetsFromDom(card) {
-  const byGroup = { art: [], style: [], software: [] }
+  const byGroup = { field: [], style: [], software: [] }
   card.querySelectorAll(".bases-card-row").forEach((row) => {
     const label = portfolioNorm(row.querySelector(".bases-card-label")?.textContent)
     let group = null
-    if (label === "field") group = "art"
+    if (label === "field") group = "field"
     else if (label === "style") group = "style"
     else if (label === "software") group = "software"
     if (!group) return
@@ -93,14 +92,14 @@ function portfolioFacetsFromDom(card) {
 
 function portfolioCollectFacets(cards) {
   const groups = {
-    art: new Map(),
+    field: new Map(),
     style: new Map(),
     software: new Map(),
   }
   cards.forEach((card) => {
     const facets = portfolioFacetsFromDom(card)
     const keys = []
-    ;["art", "style", "software"].forEach((group) => {
+    ;["field", "style", "software"].forEach((group) => {
       facets[group].forEach((raw) => {
         const key = group + ":" + portfolioNorm(raw)
         keys.push(key)
@@ -110,7 +109,7 @@ function portfolioCollectFacets(cards) {
     card.dataset.facets = keys.join(" ")
   })
   return [
-    { key: "art", label: "Field", items: [...groups.art].map(([key, label]) => ({ key, label })).sort((a, b) => a.label.localeCompare(b.label)) },
+    { key: "field", label: "Field", items: [...groups.field].map(([key, label]) => ({ key, label })).sort((a, b) => a.label.localeCompare(b.label)) },
     { key: "style", label: "Style", items: [...groups.style].map(([key, label]) => ({ key, label })).sort((a, b) => a.label.localeCompare(b.label)) },
     { key: "software", label: "Software", items: [...groups.software].map(([key, label]) => ({ key, label })).sort((a, b) => a.label.localeCompare(b.label)) },
   ].filter((g) => g.items.length > 0)

@@ -10,8 +10,6 @@ software:
   - Blender
   - Unity
 image: files/projects/covers/csof-seaport-logo.jpg
-cssclasses:
-  - project-detail
 ---
 ![[files/projects/csof-seaport.webp]]
 ![[files/projects/csof-seaport-2.webp]]

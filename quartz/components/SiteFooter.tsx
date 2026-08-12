@@ -10,10 +10,10 @@ const SiteFooter: QuartzComponent = ({ fileData, displayClass }: QuartzComponent
       <p class="footer-copy">© {year} PolyTigr.</p>
       <ul>
         <li>
-          <a href={`${base}/Privacy`}>Privacy Policy</a>
+          <a href={`${base}/privacy`}>Privacy Policy</a>
         </li>
         <li>
-          <a href={`${base}/License`}>License Terms</a>
+          <a href={`${base}/license`}>License Terms</a>
         </li>
         <li>
           <a href="mailto:contact@polytigr.com">Contact</a>

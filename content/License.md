@@ -1,5 +1,7 @@
 ---
 title: License Terms
+cssclasses:
+  - prose
 ---
 # License Terms
 Each product uses the license of the storefront where you buy it (Gumroad, Fab, CGTrader, itch.io, Superhive, and similar). Read that storefront's terms before you purchase.

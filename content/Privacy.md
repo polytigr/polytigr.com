@@ -1,5 +1,7 @@
 ---
 title: Privacy Policy
+cssclasses:
+  - prose
 ---
 # Privacy Policy
 PolyTigr does not sell personal data.

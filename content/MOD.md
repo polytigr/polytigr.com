@@ -11,8 +11,6 @@ software:
   - Blender
   - Substance Painter
 image: files/projects/covers/mod-logo.jpg
-cssclasses:
-  - project-detail
 ---
 <iframe title="MOD" src="https://sketchfab.com/models/c9c32020c8494e4aab6323aa38ed9fdc/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
 ![[files/projects/mod.webp]]

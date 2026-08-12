@@ -18,8 +18,6 @@ const portfolioTagFilter = PortfolioTagFilter()
 const base = await loadQuartzLayout()
 
 function withSiteChrome(layout: Partial<FullPageLayout>): Partial<FullPageLayout> {
-  // Config header is theme toggle only (search + page-title disabled).
-  // Order: brand | SiteNav | darkmode (toggle is the rightmost control).
   const rest = layout.header ?? []
   const afterBody = [...(layout.afterBody ?? []), portfolioTagFilter]
   return {
@@ -40,8 +38,6 @@ const layoutWithChrome = {
   ),
 }
 
-// loadQuartzConfig() bakes layout into PageTypeDispatcher without the quartz.ts
-// layout export — replace the dispatcher so Brand + SiteNav actually render.
 config.plugins.emitters = config.plugins.emitters.map((emitter) =>
   emitter.name === "PageTypeDispatcher" ? PageTypeDispatcher(layoutWithChrome)! : emitter,
 )

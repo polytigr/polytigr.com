@@ -15,13 +15,6 @@ Fork the repo if you want a similar personal site.
 
 You can keep or remove the extra Quartz code in `quartz/` (linktree buttons, project pages, portfolio filters, nav).
 
-## Preview locally
-
-```bash
-npm ci
-npx quartz build --serve
-```
-
 ## Layout
 
 - `content/`: markdown, Bases, and files

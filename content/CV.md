@@ -1,6 +1,5 @@
 ---
 title: CV
-type: cv
 cssclasses:
   - reading-mode
 ---

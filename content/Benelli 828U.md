@@ -11,8 +11,6 @@ software:
   - Maya
   - Substance Painter
 image: files/projects/covers/benelli-828u-logo.jpg
-cssclasses:
-  - project-detail
 ---
 <iframe title="Benelli 828U" src="https://sketchfab.com/models/16c3841d60ba4048acf862abcb7b2924/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
 ![[files/projects/benelli-828u.webp]]

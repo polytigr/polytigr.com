@@ -10,8 +10,6 @@ software:
   - Blender
   - Substance Painter
 image: files/projects/covers/fer-de-lance-logo.jpg
-cssclasses:
-  - project-detail
 ---
 <iframe title="Fer-de-Lance" src="https://sketchfab.com/models/afece43f097545d1929c7f115df9369a/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
 ![[files/projects/fer-de-lance.webp]]

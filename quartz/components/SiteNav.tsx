@@ -3,7 +3,6 @@ import { classNames } from "../util/lang"
 import { pathToRoot } from "../util/path"
 
 const LINKS = [
-  { href: "", label: "PolyTigr" },
   { href: "store", label: "Store" },
   { href: "portfolio", label: "Portfolio" },
   { href: "cv", label: "CV" },
@@ -30,7 +29,7 @@ const SiteNav: QuartzComponent = ({ fileData, displayClass }: QuartzComponentPro
       <ul id="site-nav-menu" class="site-nav-list">
         {LINKS.map((link) => (
           <li>
-            <a href={link.href ? `${base}/${link.href}` : base}>{link.label}</a>
+            <a href={`${base}/${link.href}`}>{link.label}</a>
           </li>
         ))}
       </ul>
@@ -38,7 +37,6 @@ const SiteNav: QuartzComponent = ({ fileData, displayClass }: QuartzComponentPro
   )
 }
 
-// Event delegation — SPA micromorph replaces header nodes and drops per-node listeners.
 SiteNav.afterDOMLoaded = `
 (function () {
   if (window.__polytigrSiteNavBound) return

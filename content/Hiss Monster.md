@@ -9,8 +9,6 @@ style: Lowpoly
 software:
   - Blender
 image: files/projects/covers/hiss-monster-logo.jpg
-cssclasses:
-  - project-detail
 ---
 <iframe title="Hiss Monster" src="https://sketchfab.com/models/3a60a93331464679aef4c3026b3e2e4f/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
 ![[files/projects/hiss-monster.webp]]

@@ -11,8 +11,6 @@ software:
   - Maya
   - Substance Painter
 image: files/projects/covers/sci-fi-dragster-logo.jpg
-cssclasses:
-  - project-detail
 ---
 <iframe title="Sci-Fi Dragster" src="https://sketchfab.com/models/e2d0abf6663144e38a4bbc501a0bbce4/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
 ![[files/projects/sci-fi-dragster.webp]]

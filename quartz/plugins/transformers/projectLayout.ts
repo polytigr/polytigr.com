@@ -1,14 +1,12 @@
 import YAML from "yaml"
 import { QuartzTransformerPlugin } from "../types"
 import { BuildCtx } from "../../util/ctx"
-import { renderLinktree } from "./linktree"
+import { escapeHTML } from "../../util/escape"
+import { matchLinktree, parseLinkItems, renderLinktree, siteOrigin } from "./linktree"
 
 const EMBED_RE = /^[ \t]*!\[\[(files\/projects\/[^\]|#]+)(?:\|[^\]]*)?\]\][ \t]*$/
 const SKETCHFAB_IFRAME_RE =
   /^[ \t]*<iframe\b[^>]*src="https:\/\/sketchfab\.com\/models\/[^"]+\/embed"[^>]*>\s*<\/iframe>[ \t]*$/i
-const LINKTREE_RE =
-  /<!--\s*linktree(?:\s*:\s*([^>]*?))?\s*-->\s*\r?\n((?:[ \t]*-[ \t]+\[[^\]]+\]\([^)\s]+\)[ \t]*\r?\n?)+)/i
-const LIST_ITEM = /^[ \t]*-[ \t]+\[([^\]]+)\]\(([^)\s]+)\)[ \t]*$/
 
 function isProjectNote(src: string): boolean {
   return /(?:^|\n)type:\s*project(?:\s|$)/m.test(src)
@@ -31,18 +29,6 @@ function splitFrontmatter(src: string): { fmRaw: string; body: string; fm: Recor
   } catch {
     return { fmRaw, body, fm: {} }
   }
-}
-
-function siteOrigin(baseUrl: string): string {
-  return `https://${baseUrl.replace(/^https?:\/\//, "")}`
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
 }
 
 function asString(value: unknown): string | null {
@@ -95,28 +81,12 @@ function buildSpecsHtml(fm: Record<string, unknown>): string {
   const body = rows
     .map(
       ({ label, value }) =>
-        `<div class="project-sidebar-row"><span class="project-sidebar-label">${escapeHtml(label)}</span><span class="project-sidebar-value">${escapeHtml(value)}</span></div>`,
+        `<div class="project-sidebar-row"><span class="project-sidebar-label">${escapeHTML(label)}</span><span class="project-sidebar-value">${escapeHTML(value)}</span></div>`,
     )
     .join("\n")
   return `<div class="project-sidebar-specs">\n${body}\n</div>`
 }
 
-function parseLinkItems(listBlock: string): { text: string; url: string }[] {
-  return listBlock
-    .split(/\r?\n/)
-    .map((line) => line.trimEnd())
-    .filter((line) => line.length > 0)
-    .map((line) => {
-      const m = line.match(LIST_ITEM)
-      return m ? { text: m[1]!, url: m[2]! } : null
-    })
-    .filter((item): item is { text: string; url: string } => item !== null)
-}
-
-/**
- * Plain-MD project notes → media gallery + sidebar (title, desc, specs, linktree).
- * Authoring: embeds, # Title, prose, <!-- linktree --> list.
- */
 export const ProjectLayout: QuartzTransformerPlugin = () => ({
   name: "ProjectLayout",
   textTransform(ctx: BuildCtx, src: string) {
@@ -137,7 +107,7 @@ export const ProjectLayout: QuartzTransformerPlugin = () => ({
       }
       const m = line.match(EMBED_RE)
       if (m) {
-        mediaParts.push(`<img src="${escapeHtml(`${origin}/${m[1]}`)}" alt="">`)
+        mediaParts.push(`<img src="${escapeHTML(`${origin}/${m[1]}`)}" alt="">`)
         i++
         continue
       }
@@ -167,13 +137,12 @@ export const ProjectLayout: QuartzTransformerPlugin = () => ({
 
     let desc = afterTitle
     let linktreeHtml = ""
-    const lt = afterTitle.match(LINKTREE_RE)
-    if (lt && lt.index != null) {
+    const lt = matchLinktree(afterTitle)
+    if (lt) {
       desc = afterTitle.slice(0, lt.index).trim()
-      const label = (lt[1] ?? "").trim() || "Project links"
-      const items = parseLinkItems(lt[2]!)
+      const items = parseLinkItems(lt.listBlock)
       if (items.length > 0) {
-        linktreeHtml = renderLinktree(label, items, origin, true)
+        linktreeHtml = renderLinktree(lt.rawLabel || "Project links", items, origin, true)
       }
     }
 
@@ -181,12 +150,12 @@ export const ProjectLayout: QuartzTransformerPlugin = () => ({
       .split(/\n\s*\n/)
       .map((p) => p.trim())
       .filter(Boolean)
-      .map((p) => `<p class="project-sidebar-desc">${escapeHtml(p.replace(/\n/g, " "))}</p>`)
+      .map((p) => `<p class="project-sidebar-desc">${escapeHTML(p.replace(/\n/g, " "))}</p>`)
       .join("\n")
 
     const specs = buildSpecsHtml(fm)
     const sidebarParts = [
-      title ? `<h1>${escapeHtml(title)}</h1>` : "",
+      title ? `<h1>${escapeHTML(title)}</h1>` : "",
       descHtml,
       specs,
       linktreeHtml,
@@ -204,5 +173,3 @@ export const ProjectLayout: QuartzTransformerPlugin = () => ({
     return `${fmRaw}\n${out}\n`
   },
 })
-
-export default ProjectLayout

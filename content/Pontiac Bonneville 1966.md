@@ -11,8 +11,6 @@ software:
   - Maya
   - Substance Painter
 image: files/projects/covers/pontiac-bonneville-logo.jpg
-cssclasses:
-  - project-detail
 ---
 <iframe title="Pontiac Bonneville 1966" src="https://sketchfab.com/models/9bafc1d9b4844dcea7cd95b28cf49756/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
 ![[files/projects/pontiac-bonneville.webp]]

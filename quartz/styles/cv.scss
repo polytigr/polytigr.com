@@ -1,6 +1,3 @@
-// CV page — adapted from Obsidian CV.css snippet
-// Quartz emits cssclasses on <article> (e.g. article.reading-mode)
-
 $cv: "article.reading-mode";
 
 #{$cv} {
@@ -34,7 +31,6 @@ $cv: "article.reading-mode";
     color: var(--cv-text);
   }
 
-  // Quartz page chrome inside article (if any)
   .inline-title,
   .frontmatter-container,
   .metadata-container {
@@ -58,7 +54,6 @@ $cv: "article.reading-mode";
     margin-bottom: 5px;
   }
 
-  // Subtitle (blockquote under name)
   blockquote:not([class]) {
     text-align: center;
     font-size: 14pt;
@@ -156,7 +151,6 @@ $cv: "article.reading-mode";
     }
   }
 
-  // Float off the paper — top-right outside corner, icon only
   .linktree {
     position: absolute;
     top: 0;
@@ -239,13 +233,11 @@ $cv: "article.reading-mode";
     vertical-align: top;
   }
 
-  // Hide builder tip callouts if any remain
   .callout {
     display: none;
   }
 }
 
-// Soft page backdrop behind the light CV panel (chrome stays site theme)
 body:has(article.reading-mode) {
   #quartz-body > .center {
     background: transparent;
@@ -260,7 +252,6 @@ body:has(article.reading-mode) {
   body:has(article.reading-mode) {
     .page-header,
     footer,
-    .breadcrumb-container,
     .page-footer,
     hr,
     .linktree {

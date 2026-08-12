@@ -1,6 +1,5 @@
 ---
 title: PolyTigr
-type: home
 cssclasses:
   - home
 ---

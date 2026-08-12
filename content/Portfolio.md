@@ -1,6 +1,5 @@
 ---
 title: Portfolio
-type: page
 cssclasses:
   - portfolio
 ---

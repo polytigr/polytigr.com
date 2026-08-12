@@ -11,8 +11,6 @@ software:
   - Blender
   - Substance Painter
 image: files/projects/covers/derya-mk-12-logo.jpg
-cssclasses:
-  - project-detail
 ---
 <iframe title="Derya MK-12" src="https://sketchfab.com/models/2ae7b23fd7384ca1ba43a87f691b8d88/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
 ![[files/projects/derya-mk-12.webp]]

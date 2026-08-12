@@ -1,8 +1,6 @@
 @use "./variables.scss" as *;
 @use "./cv.scss";
 
-// PolyTigr maker hub — charcoal + orange accent, full-bleed chrome
-
 .page {
   max-width: none;
   width: 100%;
@@ -50,7 +48,6 @@
   }
 }
 
-.page[data-frame="full-width"] > #quartz-body header,
 header {
   display: flex !important;
   flex-direction: row;
@@ -223,20 +220,21 @@ article :is(h1, h2, h3, h4, h5, h6)[id] > a[href^="#"] {
   display: none !important;
 }
 
-// One heading scale site-wide (CV + project sidebar + prose override below)
-article:not(.reading-mode):not(.prose) {
-  :is(h1, h2, h3, h4, h5, h6) {
-    text-align: center;
-  }
+article:not(.reading-mode):not(:has(.project-sidebar)) h1 {
+  text-align: center;
+  font-family: var(--titleFont);
+  font-size: clamp(2.75rem, 9vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin: 0 0 1.25rem 0;
+  color: var(--dark);
+  text-transform: none;
+}
 
-  h1 {
-    font-family: var(--titleFont);
-    font-size: clamp(2.75rem, 9vw, 4.5rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 0.95;
-    margin: 0 0 1.25rem 0;
-    color: var(--dark);
+article:not(.reading-mode):not(.prose):not(:has(.project-sidebar)) {
+  :is(h2, h3, h4, h5, h6) {
+    text-align: center;
   }
 
   h2 {
@@ -250,23 +248,10 @@ article:not(.reading-mode):not(.prose) {
   }
 }
 
-// Tool / docs pages: hero H1 centered on page; section headings left + compact
 article.prose {
   max-width: 42rem;
   margin-left: auto;
   margin-right: auto;
-
-  h1 {
-    text-align: center;
-    font-family: var(--titleFont);
-    font-size: clamp(2.75rem, 9vw, 4.5rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 0.95;
-    margin: 0 0 1.25rem 0;
-    color: var(--dark);
-    text-transform: none;
-  }
 
   :is(h2, h3, h4, h5, h6) {
     text-align: left;
@@ -291,10 +276,6 @@ article.prose {
   }
 }
 
-article.project-detail .project-sidebar :is(h1, h2, h3) {
-  text-align: left;
-}
-
 article.home,
 article.portfolio {
   padding-top: 1.5rem;
@@ -312,19 +293,10 @@ article.home {
   flex-direction: column;
   gap: 0.75rem;
   max-width: 26rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-article.portfolio {
-  > .linktree,
-  .linktree {
-    margin-bottom: 2rem;
-  }
+  margin: 0 auto 2rem;
 }
 
 .bases-cards {
-  // auto-fill + fixed track: few filtered cards stay 350px, grid centered
   grid-template-columns: repeat(auto-fill, 350px) !important;
   gap: 1rem;
   justify-content: center;
@@ -334,7 +306,6 @@ article.portfolio {
   }
 }
 
-// Square cards: image fills, title overlays
 .bases-card.internal {
   position: relative !important;
   display: block !important;
@@ -404,7 +375,6 @@ article.portfolio {
   color: rgb(255 255 255 / 85%);
 }
 
-// Tools (and any card without a cover): keep square, text readable
 .bases-card.internal:not(:has(.bases-card-image)) .bases-card-body {
   inset: 0 !important;
   justify-content: flex-end;
@@ -418,7 +388,6 @@ article.portfolio {
 .bases-card.internal:not(:has(.bases-card-image)) .bases-card-row {
   color: var(--darkgray);
 }
-
 
 a.linktree-btn {
   position: relative;
@@ -540,14 +509,7 @@ a.internal {
   }
 }
 
-.breadcrumb-container {
-  margin-bottom: 0.5rem;
-  opacity: 0.7;
-  font-size: 0.85rem;
-}
-
-// Project detail — CSS-grid ArtStation-ish layout (article.project-detail)
-article.project-detail .markdown-preview-view {
+article:has(.project-sidebar) .markdown-preview-view {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) min(16.5rem, 26%);
@@ -559,7 +521,7 @@ article.project-detail .markdown-preview-view {
   }
 }
 
-article.project-detail .project-media {
+.project-media {
   min-width: 0;
 
   img {
@@ -579,7 +541,7 @@ article.project-detail .project-media {
   }
 }
 
-article.project-detail .project-sidebar {
+.project-sidebar {
   position: sticky;
   top: 5rem;
   max-height: calc(100vh - 6rem);

@@ -9,8 +9,6 @@ style: Lowpoly
 software:
   - Blender
 image: files/projects/covers/punk-tactics-logo.jpg
-cssclasses:
-  - project-detail
 ---
 <iframe title="Punk Tactics" src="https://sketchfab.com/models/2ab9683eb94642a380f71665082ba872/embed" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>
 ![[files/projects/punk-tactics.webp]]
