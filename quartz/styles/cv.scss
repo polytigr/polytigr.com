@@ -1,0 +1,289 @@
+// CV page — adapted from Obsidian CV.css snippet
+// Quartz emits cssclasses on <article> (e.g. article.reading-mode)
+
+$cv: "article.reading-mode";
+
+#{$cv} {
+  --cv-accent: #2e5c94;
+  --cv-text: #222;
+  --cv-bg: #fff;
+  --cv-border: #dae3ea;
+  --cv-font: "Segoe UI", "Roboto", sans-serif;
+
+  position: relative;
+  overflow: visible;
+  max-width: 210mm;
+  margin: 3.25rem auto 2.5rem;
+  font-family: var(--cv-font);
+  color: var(--cv-text);
+  background-color: var(--cv-bg);
+  font-size: 11pt;
+  padding: 40px;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--cv-border) 80%, transparent),
+    0 12px 40px rgba(0, 0, 0, 0.18);
+  border-radius: 2px;
+
+  .markdown-preview-view {
+    color: inherit;
+    background: transparent;
+  }
+
+  p,
+  li,
+  table {
+    color: var(--cv-text);
+  }
+
+  // Quartz page chrome inside article (if any)
+  .inline-title,
+  .frontmatter-container,
+  .metadata-container {
+    display: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--cv-font);
+    color: var(--cv-text);
+    margin-top: 10px;
+  }
+
+  h1 {
+    font-size: 28pt;
+    text-align: center;
+    border-bottom: none;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  // Subtitle (blockquote under name)
+  blockquote:not([class]) {
+    text-align: center;
+    font-size: 14pt;
+    color: #666;
+    border-left: none;
+    margin: 0 0 15px 0;
+    padding: 0;
+    font-weight: 500;
+    quotes: none;
+
+    p {
+      margin: 0;
+      color: #666;
+    }
+
+    &::before,
+    &::after {
+      content: none;
+    }
+  }
+
+  h2 {
+    font-size: 14pt;
+    color: var(--cv-accent);
+    border-bottom: 2px solid var(--cv-border);
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  h3 {
+    font-size: 12.5pt;
+    margin-bottom: 0;
+  }
+
+  h3:has(.spacer),
+  h4:has(.spacer),
+  p:has(.spacer) {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+    display: block;
+  }
+
+  p,
+  ul,
+  ol {
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 20px;
+  }
+
+  ol {
+    padding-left: 20px;
+  }
+
+  ul > li {
+    position: relative;
+  }
+
+  ul > li::before {
+    content: "• ";
+    position: absolute;
+    left: -15px;
+  }
+
+  li {
+    line-height: 1.5;
+    font-size: 11pt;
+    margin-bottom: 3px;
+  }
+
+  h2 + *,
+  h3 + *,
+  h4 + * {
+    margin-top: 0;
+  }
+
+  a:not(.linktree-btn) {
+    color: var(--cv-accent);
+    text-decoration: none;
+    background: none;
+    padding: 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // Float off the paper — top-right outside corner, icon only
+  .linktree {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin: 0 0 0 0.75rem;
+    max-width: none;
+    width: auto;
+    z-index: 2;
+
+    a.linktree-btn {
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      letter-spacing: 0;
+      text-transform: none;
+
+      img.linktree-icon {
+        position: static;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: 1.35rem;
+        height: 1.35rem;
+      }
+
+      .linktree-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    }
+  }
+
+  @media (max-width: 56rem) {
+    .linktree {
+      top: auto;
+      bottom: 100%;
+      left: auto;
+      right: 0;
+      margin: 0 0 0.75rem;
+    }
+  }
+
+  table,
+  th,
+  td {
+    border: none;
+    background: transparent;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  th {
+    text-align: left;
+    color: var(--cv-accent);
+    padding: 6px 5px;
+    font-size: 11.5pt;
+    text-transform: uppercase;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 0;
+  }
+
+  td {
+    padding: 4px 5px;
+    font-size: 11pt;
+    vertical-align: top;
+  }
+
+  // Hide builder tip callouts if any remain
+  .callout {
+    display: none;
+  }
+}
+
+// Soft page backdrop behind the light CV panel (chrome stays site theme)
+body:has(article.reading-mode) {
+  #quartz-body > .center {
+    background: transparent;
+  }
+}
+
+@media print {
+  @page {
+    margin: 15mm 20mm;
+  }
+
+  body:has(article.reading-mode) {
+    .page-header,
+    footer,
+    .breadcrumb-container,
+    .page-footer,
+    hr,
+    .linktree {
+      display: none !important;
+    }
+  }
+
+  #{$cv} {
+    padding: 0;
+    box-shadow: none;
+    background-color: transparent;
+    margin: 0;
+    max-width: none;
+
+    h2,
+    h3,
+    table {
+      page-break-after: avoid;
+    }
+
+    tr,
+    li {
+      page-break-inside: avoid;
+    }
+  }
+}

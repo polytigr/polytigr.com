@@ -1,0 +1,17 @@
+filters:
+  and:
+    - type == "project"
+views:
+  - type: cards
+    name: Cards
+    # Keep field/style/software in order (Obsidian may strip them on save).
+    order:
+      - file.name
+      - field
+      - style
+      - software
+    sort:
+      - property: date
+        direction: DESC
+    cardSize: 350
+    image: image

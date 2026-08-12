@@ -1,0 +1,15 @@
+filters:
+  and:
+    - type == "plugin"
+    - status == "public"
+views:
+  - type: cards
+    name: Cards
+    order:
+      - file.name
+      - price
+    sort:
+      - property: date
+        direction: DESC
+    cardSize: 350
+    image: image

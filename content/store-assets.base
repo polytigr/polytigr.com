@@ -1,0 +1,18 @@
+filters:
+  and:
+    - type == "project"
+    - downloadable == true
+views:
+  - type: cards
+    name: Cards
+    order:
+      - file.name
+      - field
+      - style
+      - software
+      - price
+    sort:
+      - property: date
+        direction: DESC
+    cardSize: 350
+    image: image
