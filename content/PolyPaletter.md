@@ -20,10 +20,10 @@ aliases:
 # PolyPaletter
 Blender 4.2+ extension. Snap mesh face UVs to a color palette for flat-color and low-poly work.
 
-Convert clusters a mesh onto a generated or existing palette and writes materials. Pick snaps selected faces by clicking a swatch or another face. Adjust moves shade and hue one cell at a time and only changes UVs.
+Convert batches a mesh onto an existing palette, Pick fixes faces by clicking swatches or mesh faces, and Adjust nudges shade and hue one cell at a time. Materials rewrite only on Convert; Pick and Adjust change UVs only.
 ## Features
-- Convert: auto-cluster a palette or match an existing grid, then snap every face UV
-- Pick: viewport overlay (works in fullscreen) or Image Editor
+- Convert: match an existing palette grid, snap every face UV, assign the Palette material
+- Pick: viewport overlay palette (fullscreen-friendly) or Image Editor mode
 - Click a mesh face in Pick to match the selection to that face's swatch, including faces on objects that are not selected
 - Adjust: darken/brighten and hue shift on the palette grid
 - Lab / RGB / weighted color matching and texture blur sampling
@@ -35,3 +35,4 @@ Convert clusters a mesh onto a generated or existing palette and writes material
 Full workflow reference: [[polypaletter/docs|PolyPaletter Docs]]
 ## Support
 [contact@polytigr.com](mailto:contact@polytigr.com)
+Target reply: within 72 hours.

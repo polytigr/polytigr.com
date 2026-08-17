@@ -14,7 +14,7 @@ Blender 4.2+ extension for low-poly / flat-color art. Snap mesh face UVs to a co
 
 | Workflow | Use when |
 | --- | --- |
-| [[#Convert]] | Batch: sample face colors, cluster or match a palette, snap face UVs, update materials |
+| [[#Convert]] | Batch: sample face colors, match an existing palette, snap face UVs, assign Palette material |
 | [[#Pick color]] | Manual: click a swatch (viewport overlay by default) or a mesh face to snap selected faces |
 | [[#Adjust]] | Edit Mode: nudge selected faces ±1 shade or hue on the palette grid |
 **License:** GPL-3.0-or-later · **Author:** PolyTigr · **Target:** Blender 4.5 LTS · **Minimum:** 4.2
@@ -30,30 +30,25 @@ Junction/symlink the package to:
 ```
 Use `user_default`, not `blender_org`. Reload by disable → enable (do not `importlib.reload`).
 ## Quick start
-1. Select a textured mesh with an active UV layer.
-2. N-Panel → PolyPaletter → Convert → Auto generate → Convert.
-3. Use Pick color to fix individual faces; use Adjust to nudge shade/hue on the palette grid.
+1. Set a **Palette material** (and Detect grid if Columns/Rows look wrong).
+2. Select a textured mesh with an active UV layer.
+3. N-Panel → PolyPaletter → Convert.
+4. Use Pick color to fix individual faces; use Adjust to nudge shade/hue on the palette grid.
 ## Palette
-Scene sources for Convert (existing), Detect grid, and Pick fallback.
-- **Palette material** - material whose first Image Texture supplies the palette.
-- **Palette image** - used when no palette material is set (image wins if both are set).
+Scene sources for Convert, Detect grid, and Pick fallback.
+- **Palette material** - Convert assigns this material. The image comes from Principled Base Color, else the first Image Texture.
+- **Palette image** - used for matching when set; wins over the palette material image if both are set.
 - **Columns / Rows** - shared grid size (columns = shade, rows = hue for Adjust).
 ### Detect grid
-Estimates columns and rows from the palette image.
-- **Grid detect** - Step (default, more reliable) or Transitions (Lab).
+Estimates columns and rows from the palette image (dominant color-block size along mid-lines).
 - **Detect grid** - run detection now; also runs when you change Palette image or Palette material.
-- Methods never fall back to each other.
+- If detection fails, set Columns and Rows yourself.
 ## Convert
-Batch-sample face colors, match a palette, snap face UVs, update materials.
-1. Select mesh object(s) with an active UV layer.
-2. N-Panel → PolyPaletter → Convert.
-3. Choose **Auto generate** or **Use existing**.
-4. Click **Convert**.
-
-| Mode | Palette | Materials |
-| --- | --- | --- |
-| Auto generate | Clusters face colors into a new square palette | Always replaces with a new palette material |
-| Use existing | Matches to scene Palette image / material grid | Always assigns the Palette material |
+Batch-sample face colors, match the scene palette, snap face UVs, assign the Palette material.
+1. Set **Palette material** (required). Optional Palette image wins for matching if both are set.
+2. Select mesh object(s) with an active UV layer.
+3. N-Panel → PolyPaletter → Convert → **Convert**.
+Convert always assigns the Palette material (it clears other material slots on the object).
 - Object Mode: whole mesh (ignores leftover Edit face selection).
 - Edit Mode: selected faces, or all faces if none selected.
 - Multi-object selection reports `Processed N/M`.
@@ -74,7 +69,7 @@ Status while Pick is on: `LMB palette: Snap  |  LMB mesh: Match any face  |  ESC
 ### Select color
 Expands the Edit Mode selection to all faces whose UVs fall in the same palette cell(s) as the currently selected faces.
 ### Adjust
-In Edit Mode with a palette resolved, nudge each selected face by one cell. Materials are never changed. Clamps at grid edges (no wrap). Off-grid UVs are skipped.
+In Edit Mode with a palette resolved, nudge each selected face by one cell. Materials are never changed. Clamps at grid edges (no wrap). Off-grid UVs are skipped. When STEP detect succeeds on the resolved image, Adjust writes Columns and Rows.
 
 | Axis | Meaning | Buttons |
 | --- | --- | --- |
@@ -89,7 +84,7 @@ Move selected faces one row up (hue).
 ### Hue down
 Move selected faces one row down (hue).
 ## Scripts and agents
-PolyPaletter operators are the public script API. An agent in a running Blender (for example MCP) can call them like the N-panel buttons.
+PolyPaletter operators are the public script API. An agent in a running Blender (for example MCP `execute_python`) can call them like the N-panel buttons.
 
 List every operator:
 ```python
@@ -101,17 +96,28 @@ bpy.ops.polypaletter.help()
 Typical calls:
 ```python
 bpy.ops.polypaletter.convert()
-bpy.ops.polypaletter.list_colors()
-bpy.ops.polypaletter.snap_color(hex="#AABBCC")
+bpy.ops.polypaletter.detect_grid()
+bpy.ops.polypaletter.snap_uvs(cell_x=2, cell_y=0)
+bpy.ops.polypaletter.darken()
+bpy.ops.polypaletter.brighten()
+bpy.ops.polypaletter.hue_up()
+bpy.ops.polypaletter.hue_down()
+bpy.ops.polypaletter.select_same_color()
 ```
 
-Mouse Pick needs a click. `list_colors` reports `cx,cy #RRGGBB`. `snap_color` uses exact HEX first, else the nearest swatch.
+Mouse **Pick** needs a click. For scripts, list palette HEX values, then snap:
+```python
+bpy.ops.polypaletter.list_colors()          # reports: 0,0 #AABBCC | 1,0 #112233 | …
+bpy.ops.polypaletter.snap_color(hex="#AABBCC")  # exact HEX, else nearest swatch
+```
+
+`list_colors` uses the same palette resolve as Pick (active object first). `snap_color` does not change materials.
 ## Pick display
 Edit → Preferences → Extensions → PolyPaletter
 
 | Setting | Behaviour |
 | --- | --- |
-| Pie menu hotkey (Alt+P) | Bind Alt+P in the 3D View to the PolyPaletter pie (on by default) |
+| Pie menu | Keymap row in Preferences. Default is Alt+P. Click the shortcut block to assign a new key. |
 | Pick display | Viewport overlay (default) or Image Editor |
 | Overlay position X/Y | Place the swatch HUD in the 3D View (higher Y moves it down) |
 | Overlay scale | Size multiplier for the overlay |
@@ -121,7 +127,7 @@ Edit → Preferences → Extensions → PolyPaletter
 | Viewport overlay | Swatch grid in the 3D View; works in fullscreen (Ctrl+Space) |
 | Image Editor | Real palette texture in an Image Editor (may split the 3D View) |
 ## Pie menu
-Press **Alt+P** in the 3D View (when the hotkey pref is on). Same actions as the N-panel, no Pie Menu Editor required.
+Press **Alt+P** in the 3D View (default). Rebind it in Preferences. Same actions as the N-panel, no Pie Menu Editor required.
 
 | Direction | Action |
 | --- | --- |
@@ -135,15 +141,23 @@ Press **Alt+P** in the 3D View (when the hotkey pref is on). Same actions as the
 ## Undo
 Convert, Pick snap, and Adjust shifts are undoable. The Pick modal itself is not, until a snap runs. Loading a `.blend` clears a stuck pick flag.
 ## FAQ
-- Generated palette disappeared after closing Blender?
-  - Auto Convert writes a PNG under `polypaletter_generated/` next to the blend file (or in temp if the blend is unsaved). Pack the image or keep that folder.
+- Convert is greyed out / reports no Palette Material?
+  - Set **Palette material** in the Palette panel. Convert always assigns that material.
 - Convert only affected some faces in Object Mode?
   - Object Mode always processes the whole mesh. Switch to Edit Mode to limit to a selection.
 - Pick ignores my object's material?
   - Pick prefers the active object's palette when present; scene Palette image/material are fallbacks.
 - Overlay sits under Blender UI?
   - Move Overlay position in Preferences; raise Y to move the HUD down.
+- Adjust moved the wrong cells?
+  - Adjust runs STEP detect and may rewrite Columns and Rows. Set them yourself if detect is wrong.
 - Alt+P does nothing / conflicts with another binding?
-  - Edit → Preferences → Extensions → PolyPaletter → turn **Pie menu hotkey (Alt+P)** off, or free Alt+P in the other add-on.
+  - Edit → Preferences → Extensions → PolyPaletter → under **Keymap**, click the shortcut block and press a new key. Uncheck the row to disable it.
+## Limits
+- Does not generate a palette from the mesh. Supply a palette grid (columns = shade, rows = hue).
+- Does not generate meshes from images (that is PolyVec).
+- Does not export SVG (use PolyVec Export SVG with Face Color → UV Palette).
+- No UV inset tooling.
 ## Support
 [contact@polytigr.com](mailto:contact@polytigr.com)
+Target reply: within 72 hours.
