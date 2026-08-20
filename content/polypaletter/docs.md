@@ -66,6 +66,11 @@ Manual swatch or mesh-face matching. Materials are never changed.
 Pick prefers the active object's palette for that session. Scene Palette image / material are used when the object has none. Cols/rows are auto-detected for the image in use when possible.
 **ESC** / **RMB** / **Stop pick** cancels.
 Status while Pick is on: `LMB palette: Snap  |  LMB mesh: Match any face  |  ESC / RMB: Cancel`.
+## Mesh-face picking
+- The **current selection** is the destination. Keep the faces that you want to change selected before you start Pick.
+- The **clicked visible face** is the source. It can belong to another visible mesh and does not need to be selected.
+- Pick uses the face shown in the 3D View, then reads the source mesh face for its palette cell or colour. Modifiers and quad-view panes are supported.
+- A click on empty space passes through. Pick does not select destination faces for you.
 ### Select color
 Expands the Edit Mode selection to all faces whose UVs fall in the same palette cell(s) as the currently selected faces.
 ### Adjust
@@ -147,6 +152,8 @@ Convert, Pick snap, and Adjust shifts are undoable. The Pick modal itself is not
   - Object Mode always processes the whole mesh. Switch to Edit Mode to limit to a selection.
 - Pick ignores my object's material?
   - Pick prefers the active object's palette when present; scene Palette image/material are fallbacks.
+- Pick does not snap after I click a mesh face?
+  - Keep the destination faces selected, click a visible mesh face outside the overlay, and check the status text. Empty-space clicks pass through; Pick does not select the destination faces automatically.
 - Overlay sits under Blender UI?
   - Move Overlay position in Preferences; raise Y to move the HUD down.
 - Adjust moved the wrong cells?
