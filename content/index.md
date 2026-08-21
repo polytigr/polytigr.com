@@ -12,7 +12,6 @@ I develop art styles for games, set up the production pipeline, and make the art
 - [Instagram](https://instagram.com/polytigr)
 - [TikTok](https://tiktok.com/@polytigr)
 - [X](https://x.com/polytigr)
-- [Reddit](https://reddit.com/user/polytigr)
 ## Portfolio
 <!-- linktree: Portfolio -->
 - [ArtStation](https://artstation.com/polytigr)
