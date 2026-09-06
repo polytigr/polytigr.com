@@ -21,11 +21,9 @@ I develop art styles for games, set up the production pipeline, and make the art
 - [Gumroad](https://polytigr.gumroad.com/)
 - [itch.io](https://polytigr.itch.io)
 - [Fab](https://www.fab.com/sellers/PolyTigr)
-- [Superhive](https://superhivemarket.com/)
 - [CGTrader](https://cgtrader.com/designers/polytigr)
-- [3DExport](https://3dexport.com/polytigr)
 ## Contact
 <!-- linktree: Contact -->
 - [Email](mailto:contact@polytigr.com)
 - [Discord](https://discord.com/users/1521175838886723666)
-- [LinkedIn](https://linkedin.com/in/tgrrrr19)
+- [LinkedIn](https://linkedin.com/in/polytigr)

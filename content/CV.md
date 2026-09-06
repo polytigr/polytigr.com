@@ -5,7 +5,7 @@ cssclasses:
 ---
 # Tigran Akhumian
 > 3D Artist | Yerevan, Armenia
-[contact@polytigr.com](mailto:contact@polytigr.com) · [LinkedIn](https://linkedin.com/in/tgrrrr19) · [ArtStation](https://artstation.com/polytigr) · [Sketchfab](https://sketchfab.com/PolyTigr)
+[contact@polytigr.com](mailto:contact@polytigr.com) · [LinkedIn](https://linkedin.com/in/polytigr) · [ArtStation](https://artstation.com/polytigr) · [Sketchfab](https://sketchfab.com/PolyTigr)
 <!-- linktree: Download -->
 - [Download PDF](/files/tigran-akhumian-cv.pdf)
 ## Summary
